@@ -1,13 +1,12 @@
 dist: trusty
-
 env:
   global:
-    secure: VXAc/AyNbTnNkdPxcvF0MQwRrAekBZZI7FZgCZCm5PMQndPsMl91s0M12hmketm2/eb2dsKlbcjqB1+QZjVfp7qQasATbeSWIc+smNLlbMHrmSMM7j6EmPNGwcGFBPAJHrOVoJp1cnhE5eDSmcsMgqMt3T8OXSM84zTAmIQ91U25hb4+3AvT7uSH4NFwT+5fYEHGxbp2bBs5cWY+askRQRQ7GbV4We5BjbPgMQ5xS47Y8lh/NpXdDqI2sZkAdGTWtVyvrKp/OVIThUCJt+zXdJlGLNYGHhFbjFM4K/CgQC96H0oo99uPn+469CRRK5e13TTgpRDHN9OTBaLe9p9liylOdSba6BHeFfq+IwmYjSDR3HzHExv/dwuIx47Gca1dzvFohVjFavj0wT6MBcl7aI14xpj+XsFyv92+NVWT/U6Ggfq7AIK/A54dWYCElESBTCM+iNyKjNPMfSExLYB95TlMRt65eVTLwuPDlx78gkpno0O6nG50v44UPCCYEqOFf2lN+3gU7Uq5d4Ll6nUlDm9aSguX/9FpU3Ps0/oJya10M/6BUKArjrPVD5IRduKyV1T1ojbYvs5CF+HT91WjSbZKGIYily9kOjZHWBZPPjtbZxxUZxVxqnt/D08mgGJ/C5C9FC/DzYj6oHY+Psy0YT+sW5kbgORM3jMVabIdZA0=
-    DOCKER_USERNAME: liambindle
+    secure: jGoRu/3rwfbZTqbpUhl2uq4emBmIKFUqs5+MRu6//zNFvES+U23FjF0tz+0NVyuvQ268+Zz5xXzVkBdJUIM8aIPi48sFytH0Y0S/DFrnCxAYwA5CzMOKfFRo6BhG0r9GidRGaUEfXaAkqLBfKoZoBzYSUItTfaTgrHw5F9b4Owt3STJXnVjRwhy8pYph3ldPvNgjoSqYf40+5bamEL3hEjH8yDPM5kDaDndaNfDoPW8fSShz0oowGqdyYCdS4S1+yfuWdbthgiPOmN9j5DqTdmBNXcq1JW1U3NFyPqAda+MPUzcoHs5APIK+pXPWuufC5QFLeUWd1vExvDXBJUf0l1E9vVpgMxzGsSZhBIlJk3OvczkJnWlu9xhypGyQ4ReDnRlnwuBb3hnb5TIS40txMqrsrQ1lE2qvKl9zxz8D9AvbxvOCLhTNPR5oueMQhV+/aMZPytYfYYE6NE2st65kNwDNhlLqlqIv56P1sDbP1hNw7nzhkkmqciqUxBipWM9CfEEZakMF0zDLgJF1Y4sFCiuyk5lLdwNzrj2MlkBD8Y/Hrpu1I7tunPcjb0+pnjWlVk1yihoLEzEWfBTtzeogqAeLcUIsimU8oSAd9pwSxOoHriom5CqD/fv/qjzh2SU/VEHs6J1cOEf/q/rFSpDtB/nwiC1DtwfJq1Jh366oR84=
 jobs:
   include:
   - stage: build docker image
     script:
+    - echo $DOCKER_USERNAME
     - echo "$DOCKER_PASSWORD" | docker login -u $DOCKER_USERNAME --password-stdin
     - docker build . --build-arg BASE_IMAGE=ubuntu --build-arg BASE_IMAGE_TAG='16.04'
       -t "liambindle/penelope:$(date '+%g.%m')-ubuntu"
