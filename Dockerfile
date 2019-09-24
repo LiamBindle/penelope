@@ -4,6 +4,7 @@ FROM ${BASE_IMAGE}:${BASE_IMAGE_TAG}
 
 MAINTAINER Liam Bindle <liam.bindle@gmail.com>
 
+ARG BASE_IMAGE
 COPY ${BASE_IMAGE}/*.sh /
 RUN bash /compilers.sh
 RUN bash /utilities.sh
