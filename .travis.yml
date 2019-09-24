@@ -7,7 +7,7 @@ jobs:
     script:
     - set -e
     - echo "$DOCKER_PASSWORD" | docker login -u $DOCKER_USERNAME --password-stdin
-    - docker build . --build-arg BASE_IMAGE=ubuntu --build-arg BASE_IMAGE_TAG='16.04'
+    - travis_wait 45 docker build . --build-arg BASE_IMAGE=ubuntu --build-arg BASE_IMAGE_TAG='16.04'
       -t "liambindle/penelope:$(date '+%g.%m')-ubuntu"
     - docker push "liambindle/penelope:$(date '+%g.%m')-ubuntu"
   - stage: test
