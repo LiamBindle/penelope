@@ -6,7 +6,6 @@ jobs:
   - stage: build docker image
     script:
     - set -e
-    - echo $DOCKER_USERNAME
     - echo "$DOCKER_PASSWORD" | docker login -u $DOCKER_USERNAME --password-stdin
     - docker build . --build-arg BASE_IMAGE=ubuntu --build-arg BASE_IMAGE_TAG='16.04'
       -t "liambindle/penelope:$(date '+%g.%m')-ubuntu"
