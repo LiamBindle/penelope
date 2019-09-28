@@ -43,7 +43,7 @@ jobs:
 #         tags: |
 #           $(PENELOPE_VERSION)-$(BASE_IMAGE)$(BASE_IMAGE_TAG)
 - job: Lines
-  dependsOn: Base
+  # dependsOn: Base
   strategy:
     matrix:
       centos_openmpi304:
