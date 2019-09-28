@@ -2,8 +2,6 @@
 set -x
 set -e
 
-cat /etc/os-release
-
 apt-get update
 apt-get install -yq software-properties-common
 add-apt-repository ppa:ubuntu-toolchain-r/test

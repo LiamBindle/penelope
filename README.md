@@ -1,0 +1,1 @@
+[![Build Status](https://dev.azure.com/lrbindle/penelope/_apis/build/status/LiamBindle.penelope?branchName=master)](https://dev.azure.com/lrbindle/penelope/_build/latest?definitionId=4&branchName=master)

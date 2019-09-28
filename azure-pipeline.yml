@@ -1,0 +1,80 @@
+trigger:
+- master
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+variables: 
+  PENELOPE_VERSION: 0.0.0
+
+# Images to build
+jobs:
+- job: Base
+  strategy:
+    matrix:
+      centos:
+        BASE_IMAGE:     centos
+        BASE_IMAGE_TAG: 7
+      ubuntu:
+        BASE_IMAGE:     ubuntu
+        BASE_IMAGE_TAG: 16.04
+  steps:
+    - task: Docker@2
+      displayName: Login to Docker Hub
+      inputs:
+        command: login
+        containerRegistry: DockerHub
+    - task: Docker@2
+      displayName: Build image
+      inputs:
+        command: build
+        Dockerfile: base/Dockerfile
+        repository: liambindle/penelope
+        tags: $(PENELOPE_VERSION)-$(BASE_IMAGE)$(BASE_IMAGE_TAG)
+        arguments: |
+          --build-arg BASE_IMAGE=$(BASE_IMAGE)
+          --build-arg BASE_IMAGE_TAG=$(BASE_IMAGE_TAG) 
+    - task: Docker@2
+      displayName: Push image
+      inputs:
+        containerRegistry: DockerHub
+        repository: liambindle/penelope
+        command: push
+        tags: |
+          $(PENELOPE_VERSION)-$(BASE_IMAGE)$(BASE_IMAGE_TAG)
+- job: Lines
+  strategy:
+    matrix:
+      centos:
+        BASE_IMAGE:     centos
+        BASE_IMAGE_TAG: 7
+        SPACK_SPEC:     esmf ^openmpi@3.0.4
+        TAG:            $(PENELOPE_VERSION)-centos7-openmpi3.0.4
+      ubuntu:
+        BASE_IMAGE:     ubuntu
+        BASE_IMAGE_TAG: 16.04
+        SPACK_SPEC:     esmf ^mpich@3.1.4
+        TAG:            $(PENELOPE_VERSION)-centos7-mpich3.1.4
+  steps:
+    - task: Docker@2
+      displayName: Login to Docker Hub
+      inputs:
+        command: login
+        containerRegistry: DockerHub
+    - task: Docker@2
+      displayName: Build image
+      inputs:
+        command: build
+        Dockerfile: lines/Dockerfile
+        repository: liambindle/penelope
+        tags: $(TAG)
+        arguments: |
+          --build-arg BASE_IMAGE=$(BASE_IMAGE)
+          --build-arg BASE_IMAGE_TAG=$(BASE_IMAGE_TAG) 
+    - task: Docker@2
+      displayName: Push image
+      inputs:
+        containerRegistry: DockerHub
+        repository: liambindle/penelope
+        command: push
+        tags: $(TAG)
