@@ -28,7 +28,7 @@ jobs:
       displayName: Build image
       inputs:
         command: build
-        Dockerfile: base/Dockerfile
+        Dockerfile: base.dockerfile
         repository: liambindle/penelope
         tags: $(PENELOPE_VERSION)-$(BASE_IMAGE)$(BASE_IMAGE_TAG)
         arguments: |
@@ -43,6 +43,7 @@ jobs:
         tags: |
           $(PENELOPE_VERSION)-$(BASE_IMAGE)$(BASE_IMAGE_TAG)
 - job: Lines
+  dependsOn: Base
   strategy:
     matrix:
       centos:
@@ -65,7 +66,7 @@ jobs:
       displayName: Build image
       inputs:
         command: build
-        Dockerfile: lines/Dockerfile
+        Dockerfile: lines.dockerfile
         repository: liambindle/penelope
         tags: $(TAG)
         arguments: |
