@@ -42,7 +42,7 @@ jobs:
 #         command: push
 #         tags: |
 #           $(PENELOPE_VERSION)-$(BASE_IMAGE)$(BASE_IMAGE_TAG)
-- job: Installing ESMF dependencies
+- job: MPI
   # dependsOn: Base
   strategy:
     matrix:
