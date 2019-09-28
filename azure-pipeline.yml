@@ -73,7 +73,7 @@ jobs:
           --build-arg BASE_IMAGE=$(BASE_IMAGE)
           --build-arg BASE_IMAGE_TAG=$(BASE_IMAGE_TAG) 
           --build-arg PENELOPE_VERSION=$(PENELOPE_VERSION) 
-          --build-arg SPACK_SPEC=$(SPACK_SPEC) 
+          --build-arg SPACK_SPEC="$(SPACK_SPEC)"
     - task: Docker@2
       displayName: Push image
       inputs:
