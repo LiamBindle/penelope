@@ -9,41 +9,41 @@ variables:
 
 # Images to build
 jobs:
-# - job: Base
-#   strategy:
-#     matrix:
-#       centos:
-#         BASE_IMAGE:     centos
-#         BASE_IMAGE_TAG: 7
-#       ubuntu:
-#         BASE_IMAGE:     ubuntu
-#         BASE_IMAGE_TAG: 16.04
-#   steps:
-#     - task: Docker@2
-#       displayName: Login to Docker Hub
-#       inputs:
-#         command: login
-#         containerRegistry: DockerHub
-#     - task: Docker@2
-#       displayName: Build image
-#       inputs:
-#         command: build
-#         Dockerfile: base.dockerfile
-#         repository: liambindle/penelope
-#         tags: $(PENELOPE_VERSION)-$(BASE_IMAGE)$(BASE_IMAGE_TAG)
-#         arguments: |
-#           --build-arg BASE_IMAGE=$(BASE_IMAGE)
-#           --build-arg BASE_IMAGE_TAG=$(BASE_IMAGE_TAG) 
-#     - task: Docker@2
-#       displayName: Push image
-#       inputs:
-#         containerRegistry: DockerHub
-#         repository: liambindle/penelope
-#         command: push
-#         tags: |
-#           $(PENELOPE_VERSION)-$(BASE_IMAGE)$(BASE_IMAGE_TAG)
+- job: Base
+  strategy:
+    matrix:
+      centos:
+        BASE_IMAGE:     centos
+        BASE_IMAGE_TAG: 7
+      ubuntu:
+        BASE_IMAGE:     ubuntu
+        BASE_IMAGE_TAG: 16.04
+  steps:
+    - task: Docker@2
+      displayName: Login to Docker Hub
+      inputs:
+        command: login
+        containerRegistry: DockerHub
+    - task: Docker@2
+      displayName: Build image
+      inputs:
+        command: build
+        Dockerfile: base.dockerfile
+        repository: liambindle/penelope
+        tags: $(PENELOPE_VERSION)-$(BASE_IMAGE)$(BASE_IMAGE_TAG)
+        arguments: |
+          --build-arg BASE_IMAGE=$(BASE_IMAGE)
+          --build-arg BASE_IMAGE_TAG=$(BASE_IMAGE_TAG) 
+    - task: Docker@2
+      displayName: Push image
+      inputs:
+        containerRegistry: DockerHub
+        repository: liambindle/penelope
+        command: push
+        tags: |
+          $(PENELOPE_VERSION)-$(BASE_IMAGE)$(BASE_IMAGE_TAG)
 - job: MPI
-  # dependsOn: Base
+  dependsOn: Base
   strategy:
     matrix:
       ubuntu_openmpi304:
@@ -76,10 +76,6 @@ jobs:
         SPACK_SPEC:     mpich@3.3.1
         SPEC_TAG:       mpich3.3.1
 
-      ubuntu_mvapich20:
-        BASE_IMAGE_TAG: $(PENELOPE_VERSION)-ubuntu16.04
-        SPACK_SPEC:     mvapich2@2.0   fabrics=mrail
-        SPEC_TAG:       mvapich2.0
       ubuntu_mvapich21:
         BASE_IMAGE_TAG: $(PENELOPE_VERSION)-ubuntu16.04
         SPACK_SPEC:     mvapich2@2.1   fabrics=mrail
@@ -93,18 +89,100 @@ jobs:
         SPACK_SPEC:     mvapich2@2.3.1   fabrics=mrail
         SPEC_TAG:       mvapich2.3.1
 
-      ubuntu_intelmpi2019:
-        BASE_IMAGE_TAG: $(PENELOPE_VERSION)-ubuntu16.04
-        SPACK_SPEC:     intel-mpi@2019.4.243
-        SPEC_TAG:       intelmpi2019.4.243
-      ubuntu_intelmpi2018:
-        BASE_IMAGE_TAG: $(PENELOPE_VERSION)-ubuntu16.04
-        SPACK_SPEC:     intel-mpi@2018.4.274
-        SPEC_TAG:       intelmpi2018.4.274
-      ubuntu_intelmpi2017:
-        BASE_IMAGE_TAG: $(PENELOPE_VERSION)-ubuntu16.04
-        SPACK_SPEC:     intel-mpi@2017.4.239
-        SPEC_TAG:       intelmpi2017.4.239
+      # ubuntu_intelmpi2019:
+      #   BASE_IMAGE_TAG: $(PENELOPE_VERSION)-ubuntu16.04
+      #   SPACK_SPEC:     intel-mpi@2019.4.243
+      #   SPEC_TAG:       intelmpi2019.4.243
+      # ubuntu_intelmpi2018:
+      #   BASE_IMAGE_TAG: $(PENELOPE_VERSION)-ubuntu16.04
+      #   SPACK_SPEC:     intel-mpi@2018.4.274
+      #   SPEC_TAG:       intelmpi2018.4.274
+      # ubuntu_intelmpi2017:
+      #   BASE_IMAGE_TAG: $(PENELOPE_VERSION)-ubuntu16.04
+      #   SPACK_SPEC:     intel-mpi@2017.4.239
+      #   SPEC_TAG:       intelmpi2017.4.239
+  steps:
+    - task: Docker@2
+      displayName: Login to Docker Hub
+      inputs:
+        command: login
+        containerRegistry: DockerHub
+    - task: Docker@2
+      displayName: Build image
+      inputs:
+        command: build
+        Dockerfile: spack.dockerfile
+        repository: liambindle/penelope
+        tags: $(BASE_IMAGE_TAG)-$(SPEC_TAG)
+        arguments: |
+          --build-arg BASE_IMAGE_TAG=$(BASE_IMAGE_TAG)
+          --build-arg SPACK_SPEC="$(SPACK_SPEC)"
+    - task: Docker@2
+      displayName: Push image
+      inputs:
+        containerRegistry: DockerHub
+        repository: liambindle/penelope
+        command: push
+        tags: $(BASE_IMAGE_TAG)-$(SPEC_TAG)
+- job: ESMF
+  dependsOn: MPI
+  strategy:
+    matrix:
+      ubuntu_openmpi304:
+        BASE_IMAGE_TAG: $(PENELOPE_VERSION)-ubuntu16.04-openmpi3.0.4
+        SPACK_SPEC:     esmf@7.0.1r ^openmpi@3.0.4
+        SPEC_TAG:       esmf7.0.1r
+      ubuntu_openmpi314:
+        BASE_IMAGE_TAG: $(PENELOPE_VERSION)-ubuntu16.04-openmpi3.1.4
+        SPACK_SPEC:     esmf@7.0.1r ^openmpi@3.1.4
+        SPEC_TAG:       esmf7.0.1r
+      ubuntu_openmpi401:
+        BASE_IMAGE_TAG: $(PENELOPE_VERSION)-ubuntu16.04-openmpi4.0.1
+        SPACK_SPEC:     esmf@7.0.1r ^openmpi@4.0.1
+        SPEC_TAG:       esmf7.0.1r
+
+      ubuntu_mpich304:
+        BASE_IMAGE_TAG: $(PENELOPE_VERSION)-ubuntu16.04-mpich3.0.4
+        SPACK_SPEC:     esmf@7.0.1r ^mpich@3.0.4
+        SPEC_TAG:       esmf7.0.1r
+      ubuntu_mpich314:
+        BASE_IMAGE_TAG: $(PENELOPE_VERSION)-ubuntu16.04-mpich3.1.4
+        SPACK_SPEC:     esmf@7.0.1r ^mpich@3.1.4
+        SPEC_TAG:       esmf7.0.1r
+      ubuntu_mpich321:
+        BASE_IMAGE_TAG: $(PENELOPE_VERSION)-ubuntu16.04-mpich3.2.1
+        SPACK_SPEC:     esmf@7.0.1r ^mpich@3.2.1
+        SPEC_TAG:       esmf7.0.1r
+      ubuntu_mpich331:
+        BASE_IMAGE_TAG: $(PENELOPE_VERSION)-ubuntu16.04-mpich3.3.1
+        SPACK_SPEC:     esmf@7.0.1r ^mpich@3.3.1
+        SPEC_TAG:       esmf7.0.1r
+
+      ubuntu_mvapich21:
+        BASE_IMAGE_TAG: $(PENELOPE_VERSION)-ubuntu16.04-mvapich2.1
+        SPACK_SPEC:     esmf@7.0.1r ^mvapich2@2.1
+        SPEC_TAG:       esmf7.0.1r
+      ubuntu_mvapich22:
+        BASE_IMAGE_TAG: $(PENELOPE_VERSION)-ubuntu16.04-mvapich2.2
+        SPACK_SPEC:     esmf@7.0.1r ^mvapich2@2.2
+        SPEC_TAG:       esmf7.0.1r
+      ubuntu_mvapich231:
+        BASE_IMAGE_TAG: $(PENELOPE_VERSION)-ubuntu16.04-mvapich2.3.1
+        SPACK_SPEC:     esmf@7.0.1r ^mvapich2@2.3.1
+        SPEC_TAG:       esmf7.0.1r
+
+      # ubuntu_intelmpi2019:
+      #   BASE_IMAGE_TAG: $(PENELOPE_VERSION)-ubuntu16.04-intel-mpi2019.4.243
+      #   SPACK_SPEC:     esmf@7.0.1r ^intel-mpi@2019.4.243
+      #   SPEC_TAG:       esmf7.0.1r
+      # ubuntu_intelmpi2018:
+      #   BASE_IMAGE_TAG: $(PENELOPE_VERSION)-ubuntu16.04-intel-mpi2018.4.274
+      #   SPACK_SPEC:     esmf@7.0.1r ^intel-mpi@2018.4.274
+      #   SPEC_TAG:       esmf7.0.1r
+      # ubuntu_intelmpi2017:
+      #   BASE_IMAGE_TAG: $(PENELOPE_VERSION)-ubuntu16.04-intel-mpi2017.4.239
+      #   SPACK_SPEC:     esmf@7.0.1r ^intel-mpi@2017.4.239
+      #   SPEC_TAG:       esmf7.0.1r
   steps:
     - task: Docker@2
       displayName: Login to Docker Hub
