@@ -103,6 +103,14 @@ packages:
     paths:
       libuuid: /usr
     buildable: False
+  flex:
+    paths:
+      libuuid: /usr
+    buildable: False
+  cmake:
+    paths:
+      libuuid: /usr
+    buildable: False
   gcc:
     modules:
       gcc@7: gcc/7

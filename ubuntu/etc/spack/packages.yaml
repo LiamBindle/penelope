@@ -99,6 +99,14 @@ packages:
     paths:
       libuuid: /usr
     buildable: False  
+  flex:
+    paths:
+      libuuid: /usr
+    buildable: False
+  cmake:
+    paths:
+      libuuid: /usr
+    buildable: False
   gcc:
     modules:
       gcc@4: gcc/4
