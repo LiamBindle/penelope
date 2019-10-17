@@ -5,7 +5,7 @@ pool:
   vmImage: 'ubuntu-latest'
 
 variables: 
-  PENELOPE_VERSION: 0.0.0
+  PENELOPE_VERSION: 0.1.0
 
 # Images to build
 jobs:
@@ -58,6 +58,10 @@ jobs:
         BASE_IMAGE_TAG: $(PENELOPE_VERSION)-ubuntu16.04
         SPACK_SPEC:     openmpi@4.0.1
         SPEC_TAG:       openmpi4.0.1
+      centos_openmpi314:
+        BASE_IMAGE_TAG: $(PENELOPE_VERSION)-centos7
+        SPACK_SPEC:     openmpi@3.1.4
+        SPEC_TAG:       openmpi3.1.4
 
       ubuntu_mpich304:
         BASE_IMAGE_TAG: $(PENELOPE_VERSION)-ubuntu16.04
@@ -75,6 +79,10 @@ jobs:
         BASE_IMAGE_TAG: $(PENELOPE_VERSION)-ubuntu16.04
         SPACK_SPEC:     mpich@3.3.1
         SPEC_TAG:       mpich3.3.1
+      centos_mpich331:
+        BASE_IMAGE_TAG: $(PENELOPE_VERSION)-centos7
+        SPACK_SPEC:     mpich@3.3.1
+        SPEC_TAG:       mpich3.3.1
 
       ubuntu_mvapich21:
         BASE_IMAGE_TAG: $(PENELOPE_VERSION)-ubuntu16.04
@@ -86,6 +94,10 @@ jobs:
         SPEC_TAG:       mvapich2.2
       ubuntu_mvapich231:
         BASE_IMAGE_TAG: $(PENELOPE_VERSION)-ubuntu16.04
+        SPACK_SPEC:     mvapich2@2.3.1   fabrics=mrail
+        SPEC_TAG:       mvapich2.3.1
+      centos_mvapich231:
+        BASE_IMAGE_TAG: $(PENELOPE_VERSION)-centos7
         SPACK_SPEC:     mvapich2@2.3.1   fabrics=mrail
         SPEC_TAG:       mvapich2.3.1
 
@@ -130,59 +142,71 @@ jobs:
     matrix:
       ubuntu_openmpi304:
         BASE_IMAGE_TAG: $(PENELOPE_VERSION)-ubuntu16.04-openmpi3.0.4
-        SPACK_SPEC:     esmf@7.0.1r ^openmpi@3.0.4
-        SPEC_TAG:       esmf7.0.1r
+        SPACK_SPEC:     esmf@8.0.0 ^openmpi@3.0.4
+        SPEC_TAG:       esmf8.0.0
       ubuntu_openmpi314:
         BASE_IMAGE_TAG: $(PENELOPE_VERSION)-ubuntu16.04-openmpi3.1.4
-        SPACK_SPEC:     esmf@7.0.1r ^openmpi@3.1.4
-        SPEC_TAG:       esmf7.0.1r
+        SPACK_SPEC:     esmf@8.0.0 ^openmpi@3.1.4
+        SPEC_TAG:       esmf8.0.0
       ubuntu_openmpi401:
         BASE_IMAGE_TAG: $(PENELOPE_VERSION)-ubuntu16.04-openmpi4.0.1
-        SPACK_SPEC:     esmf@7.0.1r ^openmpi@4.0.1
-        SPEC_TAG:       esmf7.0.1r
+        SPACK_SPEC:     esmf@8.0.0 ^openmpi@4.0.1
+        SPEC_TAG:       esmf8.0.0
+      centos_openmpi314:
+        BASE_IMAGE_TAG: $(PENELOPE_VERSION)-centos7-openmpi3.1.4
+        SPACK_SPEC:     esmf@8.0.0 ^openmpi@3.1.4
+        SPEC_TAG:       esmf8.0.0
 
       ubuntu_mpich304:
         BASE_IMAGE_TAG: $(PENELOPE_VERSION)-ubuntu16.04-mpich3.0.4
-        SPACK_SPEC:     esmf@7.0.1r ^mpich@3.0.4
-        SPEC_TAG:       esmf7.0.1r
+        SPACK_SPEC:     esmf@8.0.0 ^mpich@3.0.4
+        SPEC_TAG:       esmf8.0.0
       ubuntu_mpich314:
         BASE_IMAGE_TAG: $(PENELOPE_VERSION)-ubuntu16.04-mpich3.1.4
-        SPACK_SPEC:     esmf@7.0.1r ^mpich@3.1.4
-        SPEC_TAG:       esmf7.0.1r
+        SPACK_SPEC:     esmf@8.0.0 ^mpich@3.1.4
+        SPEC_TAG:       esmf8.0.0
       ubuntu_mpich321:
         BASE_IMAGE_TAG: $(PENELOPE_VERSION)-ubuntu16.04-mpich3.2.1
-        SPACK_SPEC:     esmf@7.0.1r ^mpich@3.2.1
-        SPEC_TAG:       esmf7.0.1r
+        SPACK_SPEC:     esmf@8.0.0 ^mpich@3.2.1
+        SPEC_TAG:       esmf8.0.0
       ubuntu_mpich331:
         BASE_IMAGE_TAG: $(PENELOPE_VERSION)-ubuntu16.04-mpich3.3.1
-        SPACK_SPEC:     esmf@7.0.1r ^mpich@3.3.1
-        SPEC_TAG:       esmf7.0.1r
+        SPACK_SPEC:     esmf@8.0.0 ^mpich@3.3.1
+        SPEC_TAG:       esmf8.0.0
+      centos_mpich331:
+        BASE_IMAGE_TAG: $(PENELOPE_VERSION)-centos7-mpich3.3.1
+        SPACK_SPEC:     esmf@8.0.0 ^mpich@3.3.1
+        SPEC_TAG:       esmf8.0.0
 
       ubuntu_mvapich21:
         BASE_IMAGE_TAG: $(PENELOPE_VERSION)-ubuntu16.04-mvapich2.1
-        SPACK_SPEC:     esmf@7.0.1r ^mvapich2@2.1
-        SPEC_TAG:       esmf7.0.1r
+        SPACK_SPEC:     esmf@8.0.0 ^mvapich2@2.1
+        SPEC_TAG:       esmf8.0.0
       ubuntu_mvapich22:
         BASE_IMAGE_TAG: $(PENELOPE_VERSION)-ubuntu16.04-mvapich2.2
-        SPACK_SPEC:     esmf@7.0.1r ^mvapich2@2.2
-        SPEC_TAG:       esmf7.0.1r
+        SPACK_SPEC:     esmf@8.0.0 ^mvapich2@2.2
+        SPEC_TAG:       esmf8.0.0
       ubuntu_mvapich231:
         BASE_IMAGE_TAG: $(PENELOPE_VERSION)-ubuntu16.04-mvapich2.3.1
-        SPACK_SPEC:     esmf@7.0.1r ^mvapich2@2.3.1
-        SPEC_TAG:       esmf7.0.1r
+        SPACK_SPEC:     esmf@8.0.0 ^mvapich2@2.3.1
+        SPEC_TAG:       esmf8.0.0
+      centos_mvapich231:
+        BASE_IMAGE_TAG: $(PENELOPE_VERSION)-centos7-mvapich2.3.1
+        SPACK_SPEC:     esmf@8.0.0 ^mvapich2@2.3.1
+        SPEC_TAG:       esmf8.0.0
 
       # ubuntu_intelmpi2019:
       #   BASE_IMAGE_TAG: $(PENELOPE_VERSION)-ubuntu16.04-intel-mpi2019.4.243
-      #   SPACK_SPEC:     esmf@7.0.1r ^intel-mpi@2019.4.243
-      #   SPEC_TAG:       esmf7.0.1r
+      #   SPACK_SPEC:     esmf@8.0.0 ^intel-mpi@2019.4.243
+      #   SPEC_TAG:       esmf8.0.0
       # ubuntu_intelmpi2018:
       #   BASE_IMAGE_TAG: $(PENELOPE_VERSION)-ubuntu16.04-intel-mpi2018.4.274
-      #   SPACK_SPEC:     esmf@7.0.1r ^intel-mpi@2018.4.274
-      #   SPEC_TAG:       esmf7.0.1r
+      #   SPACK_SPEC:     esmf@8.0.0 ^intel-mpi@2018.4.274
+      #   SPEC_TAG:       esmf8.0.0
       # ubuntu_intelmpi2017:
       #   BASE_IMAGE_TAG: $(PENELOPE_VERSION)-ubuntu16.04-intel-mpi2017.4.239
-      #   SPACK_SPEC:     esmf@7.0.1r ^intel-mpi@2017.4.239
-      #   SPEC_TAG:       esmf7.0.1r
+      #   SPACK_SPEC:     esmf@8.0.0 ^intel-mpi@2017.4.239
+      #   SPEC_TAG:       esmf8.0.0
   steps:
     - task: Docker@2
       displayName: Login to Docker Hub
