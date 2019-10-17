@@ -105,11 +105,11 @@ packages:
     buildable: False
   flex:
     paths:
-      libuuid: /usr
+      flex: /usr
     buildable: False
   cmake:
     paths:
-      libuuid: /usr
+      cmake: /usr
     buildable: False
   gcc:
     modules:
