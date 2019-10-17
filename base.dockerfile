@@ -21,7 +21,7 @@ ENV MODULEPATH=${MODULEPATH}:/modulefiles
 ENV SPACK_ROOT=/spack
 RUN git clone https://github.com/spack/spack.git \
 &&  cd spack \
-&&  git checkout v0.12.1 \
+&&  git checkout develop \
 &&  echo ". ${SPACK_ROOT}/share/spack/setup-env.sh" >> /init.rc
 ENV BASH_ENV /init.rc
 
