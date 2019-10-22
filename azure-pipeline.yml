@@ -48,7 +48,7 @@ jobs:
     matrix:
       ubuntu_netcdff_gcc4:
         BASE_IMAGE_TAG: $(PENELOPE_VERSION)-ubuntu16.04
-        SPACK_SPEC:     netcdf-fortran@4.4.4%gcc@4 target=x86_64 ^netcdf@4.5.0%gcc@4 -mpi
+        SPACK_SPEC:     netcdf-fortran@4.4.4%gcc@4.9 target=x86_64 ^netcdf@4.5.0%gcc@4.9 -mpi
         SPEC_TAG:       gcc4-netcdf4.5.0-netcdff4.4.4
       ubuntu_netcdff_gcc5:
         BASE_IMAGE_TAG: $(PENELOPE_VERSION)-ubuntu16.04
