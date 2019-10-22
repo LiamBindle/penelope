@@ -81,7 +81,7 @@ jobs:
 
       centos_netcdff_gcc4:
         BASE_IMAGE_TAG: $(PENELOPE_VERSION)-centos7
-        SPACK_SPEC:     netcdf-fortran@4.4.4%gcc@4 target=x86_64 ^netcdf@4.5.0%gcc@4
+        SPACK_SPEC:     netcdf-fortran@4.4.4%gcc@4.8 target=x86_64 ^netcdf@4.5.0%gcc@4.8
         SPEC_TAG:       gcc4-netcdf4.5.0-netcdff4.4.4
       centos_netcdff_gcc7:
         BASE_IMAGE_TAG: $(PENELOPE_VERSION)-centos7
