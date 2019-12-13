@@ -235,10 +235,10 @@ jobs:
       #   SPACK_SPEC:     esmf@8.0.0 target=x86_64 -lapack -pio -pnetcdf -xerces ^mpich@3.3.1
       #   SPEC_TAG:       esmf8.0.0
 
-      ubuntu_mvapich21:
-        BASE_IMAGE_TAG: $(PENELOPE_VERSION)-ubuntu16.04-mvapich2.1
-        SPACK_SPEC:     esmf@8.0.0 target=x86_64 -lapack -pio -pnetcdf -xerces ^mvapich2@2.1 fabrics=mrail
-        SPEC_TAG:       esmf8.0.0
+      # ubuntu_mvapich21:
+      #   BASE_IMAGE_TAG: $(PENELOPE_VERSION)-ubuntu16.04-mvapich2.1
+      #   SPACK_SPEC:     esmf@8.0.0 target=x86_64 -lapack -pio -pnetcdf -xerces ^mvapich2@2.1 fabrics=mrail
+      #   SPEC_TAG:       esmf8.0.0
       ubuntu_mvapich22:
         BASE_IMAGE_TAG: $(PENELOPE_VERSION)-ubuntu16.04-mvapich2.2
         SPACK_SPEC:     esmf@8.0.0 target=x86_64 -lapack -pio -pnetcdf -xerces ^mvapich2@2.2 fabrics=mrail
