@@ -117,3 +117,5 @@ packages:
       gcc@8: gcc/8
     paths:
       gcc@4: /usr
+  all:
+    compiler: [ gcc@8 ]

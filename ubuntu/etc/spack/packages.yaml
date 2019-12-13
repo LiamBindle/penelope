@@ -116,4 +116,4 @@ packages:
       gcc@8: gcc/8
       gcc@9: gcc/9
   all:
-    compiler: [ gcc@7 ]
+    compiler: [ gcc@9 ]
