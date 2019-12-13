@@ -144,10 +144,10 @@ jobs:
         SPACK_SPEC:     mpich@3.3.1 target=x86_64
         SPEC_TAG:       mpich3.3.1
 
-      ubuntu_mvapich21:
-        BASE_IMAGE_TAG: $(PENELOPE_VERSION)-ubuntu16.04
-        SPACK_SPEC:     mvapich2@2.1 fabrics=mrail target=x86_64
-        SPEC_TAG:       mvapich2.1
+      # ubuntu_mvapich21:
+      #   BASE_IMAGE_TAG: $(PENELOPE_VERSION)-ubuntu16.04
+      #   SPACK_SPEC:     mvapich2@2.1 fabrics=mrail target=x86_64
+      #   SPEC_TAG:       mvapich2.1
       ubuntu_mvapich22:
         BASE_IMAGE_TAG: $(PENELOPE_VERSION)-ubuntu16.04
         SPACK_SPEC:     mvapich2@2.2 fabrics=mrail target=x86_64
