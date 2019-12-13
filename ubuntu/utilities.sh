@@ -1,7 +1,14 @@
 set -x
 set -e
 
-apt-get install -yq bzip2 zip wget curl autoconf automake flex bison make python git vim tcl tcl-dev patch libsigsegv-dev libtool texinfo findutils libpciaccess-dev numactl libxml2-dev pkgconf uuid-dev cmake
+apt-get install -yq bzip2 zip wget curl autoconf automake flex bison make python git vim tcl tcl-dev patch libsigsegv-dev libtool texinfo findutils libpciaccess-dev numactl libxml2-dev pkgconf uuid-dev
+
+# Install CMake
+wget https://github.com/Kitware/CMake/releases/download/v3.14.7/cmake-3.14.7-Linux-x86_64.tar.gz
+tar -xf cmake-*
+cp -r cmake-*/ /opt/cmake
+rm -rf cmake-*
+echo "export PATH=$PATH:/opt/cmake/bin" >> /init.rc 
 
 # Install environment modules
 MODULES_VERSION=4.3.0
